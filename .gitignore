@@ -2,3 +2,5 @@
 .ipynb_checkpoints
 *.json
 *.csv
+*.pyc
+__pycache__

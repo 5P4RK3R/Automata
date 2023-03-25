@@ -1,5 +1,6 @@
 import scrapy
 # from stack.items import StackItem
+from scrapy.selector import Selector
 
 
 class A99acresSpider(scrapy.Spider):
@@ -8,7 +9,9 @@ class A99acresSpider(scrapy.Spider):
     start_urls = ['http://https://www.99acres.com/independent-house-for-rent-in-india-ffid/']
 
     def parse(self, response):
-        lands = response.css('div.pageComponent')
+        lands = Selector(response).xpath('//div[@data-label="SEARCH"]')
+        # lands = response.css('div.pageComponent')
+        print("lands",lands)
         for land in lands:
             # item = StackItem()
             yield {
