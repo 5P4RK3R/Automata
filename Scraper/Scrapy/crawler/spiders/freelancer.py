@@ -28,8 +28,8 @@ class FreelancerSpider(scrapy.Spider):
         total_pages = int(response.css('#bottom-pagination a:last-child::attr(href)').get().strip('jobs/'))
         next_page = response.css('#bottom-pagination a:nth-last-child(2)::attr(href)').get()
         page = int(response.css('ul.Breadcrumbs-list li:last-child span::text').get())
-        print(total_pages,next_page,page, page is not total_pages)
-        
+        # print(total_pages,next_page,page, page is not total_pages)
+        print("total_pages",total_pages)        
         if page is not total_pages:
             print("---------------Next Page------------")
             next_page = response.urljoin(next_page)
