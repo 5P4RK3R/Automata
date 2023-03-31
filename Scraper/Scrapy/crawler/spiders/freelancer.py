@@ -34,13 +34,13 @@ class FreelancerSpider(scrapy.Spider):
             # next_page = int(response.css('#bottom-pagination a:nth-last-child(2)::attr(href)').get().strip('jobs/'))
             page = int(response.css('ul.Breadcrumbs-list li:last-child span::text').get())
             # print("31test",next_page)
-            print("31test",total_pages,next_page,page, page is not total_pages)
-            print("total_pages",total_pages)        
+            self.logger.info(f"31test,{total_pages},{next_page},{page}, {page is not total_pages}")
+            self.logger.info(f"total_pages {total_pages}")        
             if page is not total_pages:
-                print("---------------Next Page------------")
-                print("next_page",next_page)
+                self.logger.info("---------------Next Page------------")
+                self.logger.info(f"next_page {next_page}")
                 next_page = response.urljoin(f"https://www.freelancer.com{next_page}")
-                print("next_page",next_page)
+                self.logger.info(f"next_page {next_page}")
                 # yield response.follow(next_page,self.parse)
                 yield scrapy.Request(next_page, callback = self.parse)
         except:
