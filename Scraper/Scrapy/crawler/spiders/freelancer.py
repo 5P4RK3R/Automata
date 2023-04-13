@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 class FreelancerSpider(scrapy.Spider):
     name = 'freelancer'
-    allowed_domains = ['https://www.freelancer.com']
+    allowed_domains = ['freelancer.com']
     start_urls = ['https://www.freelancer.com/jobs']
 
     def parse(self, response):
