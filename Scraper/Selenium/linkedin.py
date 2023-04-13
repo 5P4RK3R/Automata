@@ -6,8 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
 import pandas as pd
+from pprint import pprint
 driver = webdriver.Safari()
-driver.fullscreen_window()
+# driver.fullscreen_window()
 driver.get("https://www.linkedin.com/jobs/search/?geoId=102713980&location=India")
 scroll_pause_time = 1 # You can set your own pause time. My laptop is a bit slow so I use 1 sec
 screen_height = driver.execute_script("return window.screen.height;")   # get the screen height of the web
@@ -36,15 +37,16 @@ while True:
 
 ### GET Jobs
 websites = []
-Jobs = driver.find_elements(by=By.XPATH,value="//ul[@class='jobs-search__results-list']//li")
+Jobs = driver.find_elements(by=By.XPATH,value="//ul[@class='jobs-search-results-list']//li")
+pprint(Jobs)
 for i,job in enumerate(Jobs):
     companies = {}
     try:
         time.sleep(2)   
         driver.execute_script("arguments[0].scrollIntoView();", job)
         job.click()
-        company = driver.find_element(by=By.XPATH,value="//a[@data-tracking-control-name='public_jobs_topcard-org-name']")
-        anchors = driver.find_element(by=By.XPATH,value="//a[@data-tracking-control-name='public_jobs_apply-link-offsite']")
+        company = driver.find_element(by=By.XPATH,value="//div[@class='job-card-container__company-name']")
+        anchors = driver.find_element(by=By.XPATH,value="//a[@class='job-card-list__title']")
         companies['name'] = company.text.strip()
         companies['url'] = anchors.get_attribute('href')
         websites.append(companies)

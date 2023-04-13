@@ -14,7 +14,7 @@ sessionKey = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_
 sessionPassword = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='session_password']")))
 # sessionKey  = driver.find_element_by_id('session_key')
 # sessionPassword  = driver.find_element_by_id('session_password')
-signInBtn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-form__submit-button")))
+signInBtn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "sign-in-form__submit-btn--full-width")))
 # signInBtn = driver.find_element(by=By.CLASS_NAME,value='sign-in-form__submit-button')
 # print(signInBtn)
 sessionKey.clear()
