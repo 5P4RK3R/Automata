@@ -4,7 +4,7 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from itemloaders.processors import MapCompose, TakeFirst
+from itemloaders.processors import MapCompose, TakeFirst, Join
 from w3lib.html import remove_tags
 
 
@@ -16,4 +16,7 @@ class FreelancerItem(scrapy.Item):
     title = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
     desc = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
     price = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
+    # skills = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = Join())
+    # started = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
+    # entries = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
     # pass
