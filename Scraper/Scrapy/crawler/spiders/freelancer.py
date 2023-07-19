@@ -9,8 +9,8 @@ from scrapy.linkextractors import LinkExtractor
 
 class FreelancerSpider(scrapy.Spider):
     name = 'freelancer'
-    allowed_domains = ['freelancer.com']
-    # allowed_domains = ['https://www.freelancer.com']
+    # allowed_domains = ['freelancer.com']
+    allowed_domains = ['https://www.freelancer.com']
     start_urls = ['https://www.freelancer.com/jobs']
 
     def parse(self, response):
@@ -19,27 +19,31 @@ class FreelancerSpider(scrapy.Spider):
             for job in response.css('div.JobSearchCard-item'):
                 il = ItemLoader(item = FreelancerItem(),selector = job)
 
-                il.add_css('title','a.JobSearchCard-primary-heading-link::text')
-                il.add_css('desc','p.JobSearchCard-primary-description::text')
+                # il.add_css('title','a.JobSearchCard-primary-heading-link::text')
+                il.add_css('link','h2.ProjectTable-title a::attr(href)')
+                # il.add_css('desc','p.JobSearchCard-primary-description::text')
                 # il.add_css('skills','span.ProjectTable-skills::text')
                 # il.add_css('started','td.started-col::text')
                 # il.add_css('entries','td.bids-col::text')
-                il.add_css('price','div.JobSearchCard-secondary-price::text')
+                # il.add_css('price','div.JobSearchCard-secondary-price::text')
 
                 yield il.load_item()
                 # price = job.css('div.JobSearchCard-secondary-price::text')
+                # link = job.xpath("//h2[@class='ProjectTable-title']/a/@href")
+
                 # title = job.css('a.JobSearchCard-primary-heading-link::text')
                 # desc = job.css('p.JobSearchCard-primary-description::text')
                 # skills = job.css('span.ProjectTable-skills a::attr(href)')
                 # entries = job.css('div.bids-col-inner::text')
                 # started = job.css('td.started-col::text')
                 # yield {
-                #     'title': title.get().strip() if title else "",
-                #     'desc': desc.get().strip() if desc else "",
-                #     'price': price.get().strip() if price else "",
-                #     # 'skills': skills.get().strip() if skills else "",
-                #     # 'entries': entries.get().strip() if entries else "",
-                #     # 'started': started.get().strip() if started else "",
+                    # 'title': title.get().strip() if title else "",
+                    # 'link': link.get().strip() if link else "",
+                    # 'desc': desc.get().strip() if desc else "",
+                    # 'price': price.get().strip() if price else "",
+                    # 'skills': skills.get().strip() if skills else "",
+                    # 'entries': entries.get().strip() if entries else "",
+                    # 'started': started.get().strip() if started else "",
                 # }
 
             # total_pages = int(response.css('#bottom-pagination a:last-child::attr(href)').get().strip('jobs/'))
