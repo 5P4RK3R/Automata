@@ -6,9 +6,9 @@ async def main():
         browser = await p.chromium.launch()
         page = await browser.new_page()
         await page.goto("https://www.instagram.com/accounts/login/")
-        inpEmail = '//input[@type="email"]'
+        inpEmail = '//input[@type="text"]'
         inpPassword = '//input[@type="password"]'
-        inpSubmit = '//input[@type="submit"]'
+        inpSubmit = '//button[@type="submit"]'
         await page.locator(inpEmail).fill('mahendransparker@gmail.com')
         await page.locator(inpPassword).fill('gojuryu45')
         await page.locator(inpSubmit).click()
