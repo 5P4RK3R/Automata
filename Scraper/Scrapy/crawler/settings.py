@@ -62,9 +62,12 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+ITEM_PIPELINES = {
 #    'crawler.pipelines.CrawlerPipeline': 300,
-#}
+    # 'crawler.pipelines.PostgresPipeline': 300,
+    'crawler.pipelines.MyMongoDBPipeline': 300,
+
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -87,3 +90,13 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 HTTPERROR_ALLOWED_CODES =[404]
+MONGODB_URI = 'mongodb://localhost:27017/'
+MONGODB_DB = 'Job_Market'
+MONGODB_COLLECTION = 'Jobs'
+# POSTGRES_CONFIG = {
+#     'database': 'apppile',
+#     'user': 'admin',
+#     'password': 'admin',
+#     'host': 'localhost',  # Change to your PostgreSQL host
+#     'port': '5432',       # Change to your PostgreSQL port
+# }

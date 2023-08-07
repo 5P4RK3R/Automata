@@ -11,7 +11,7 @@ class FreelancerSpider(scrapy.Spider):
     name = 'freelancer'
     allowed_domains = ['freelancer.com']
     # allowed_domains = ['https://www.freelancer.com']
-    start_urls = ['https://www.freelancer.com/jobs']
+    start_urls = ['https://www.freelancer.com/jobs/']
     def __init__(self, name=None, **kwargs):
         super().__init__(name, **kwargs)
         self.links = []
@@ -93,7 +93,7 @@ class FreelancerSpider(scrapy.Spider):
         # # il.add_css('raw_description','fl-bit.Card')
         # yield il.load_item()
         # skills = response.xpath('//fl-bit[@class="ProjectViewDetailsSkills"]')
-        title = response.xpath('//fl-heading[@class="Heading"]')
+        title = response.xpath('//fl-text[@class="ng-star-inserted"]')
         yield {
             # "skills": skills
             "title": title

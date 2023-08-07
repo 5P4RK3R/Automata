@@ -64,12 +64,12 @@ class FreelancerItem(scrapy.Item):
     # pass
 
 class RemoteItem(scrapy.Item):
-    location = scrapy.Field(input_processor = MapCompose(remove_tags,splitText,replaceText,stripText),output_processor = TakeFirst())
-    work_type = scrapy.Field(input_processor = MapCompose(remove_tags,splitText,splitComma,stripText),output_processor = TakeFirst())
     title = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
     company = scrapy.Field(input_processor = MapCompose(remove_tags,get_last_text,stripText),output_processor = TakeFirst())
     period = scrapy.Field(input_processor = MapCompose(remove_tags,stripText,get_period),output_processor = TakeFirst())
     category = scrapy.Field(input_processor = MapCompose(remove_tags),output_processor = TakeFirst())
+    location = scrapy.Field(input_processor = MapCompose(remove_tags,splitText,replaceText,stripText),output_processor = TakeFirst())
+    work_type = scrapy.Field(input_processor = MapCompose(remove_tags,splitText,splitComma,stripText),output_processor = TakeFirst())
     description = scrapy.Field(input_processor = MapCompose(remove_tags,stripText),output_processor = TakeFirst())
     raw_description = scrapy.Field(input_processor = MapCompose(stripText),output_processor = TakeFirst())
     raw_job_info = scrapy.Field(input_processor = MapCompose(stripText),output_processor = TakeFirst())
