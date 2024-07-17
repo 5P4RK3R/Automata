@@ -9,8 +9,8 @@ async def main():
         inpEmail = '//input[@type="text"]'
         inpPassword = '//input[@type="password"]'
         inpSubmit = '//button[@type="submit"]'
-        await page.locator(inpEmail).fill('mahendransparker@gmail.com')
-        await page.locator(inpPassword).fill('gojuryu45')
+        await page.locator(inpEmail).fill('')
+        await page.locator(inpPassword).fill('')
         await page.locator(inpSubmit).click()
         print(await page.title())
         await browser.close()
