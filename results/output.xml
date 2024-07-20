@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.4 on darwin)" generated="2024-07-20T22:36:47.236701" rpa="false" schemaversion="5">
+<suite id="s1" name="Browser" source="/Users/coroutine/Projects/Python/Automation/Robot/tests/browser.robot">
+<test id="s1-t1" name="Open Browser" line="46">
+<kw name="Setup Instagram Flow" owner="flow">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:36:47.865095" level="INFO">Opening browser 'chrome' to base url 'https://www.instagram.com/'.</msg>
+<arg>url=${url}</arg>
+<arg>browser=chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-07-20T22:36:47.864751" elapsed="3.428952"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-07-20T22:36:56.299432" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-07-20T22:36:51.294680" elapsed="5.004991"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-07-20T22:36:56.300099" elapsed="0.369608"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:36:56.670698" level="INFO">Typing text 'mahendransparker@gmail.com' into text field '//input[@name='username']'.</msg>
+<arg>//input[@name='username']</arg>
+<arg>mahendransparker@gmail.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:36:56.669996" elapsed="0.343160"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:36:57.014563" level="INFO">Typing text 'gojuryu45' into text field '//input[@name='password']'.</msg>
+<arg>//input[@name='password']</arg>
+<arg>gojuryu45</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:36:57.013580" elapsed="0.175571"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:36:57.191167" level="INFO">Clicking button 'css:button[type="submit"]'.</msg>
+<arg>css:button[type="submit"]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:36:57.190429" elapsed="0.122621"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-07-20T22:37:07.315817" level="INFO">Slept 10 seconds.</msg>
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-07-20T22:36:57.313425" elapsed="10.002540"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:37:07.316757" level="INFO">Clicking element 'xpath=//div[@role="button" and text()="Not now"]'.</msg>
+<arg>xpath=//div[@role="button" and text()="Not now"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:37:07.316357" elapsed="0.217408"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-07-20T22:37:17.535783" level="INFO">Slept 10 seconds.</msg>
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-07-20T22:37:07.534148" elapsed="10.001802"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:37:17.536584" level="INFO">Clicking button 'xpath://div[@role='dialog']//button[@tabindex='0' and contains(text(), 'Not Now')]'.</msg>
+<arg>xpath://div[@role='dialog']//button[@tabindex='0' and contains(text(), 'Not Now')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:37:17.536253" elapsed="0.122209"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-07-20T22:37:27.661050" level="INFO">Slept 10 seconds.</msg>
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-07-20T22:37:17.659169" elapsed="10.003575"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:37:27.664833" level="INFO">Clicking element 'xpath=//span[contains(text(), 'Profile')]'.</msg>
+<arg>xpath=//span[contains(text(), 'Profile')]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:37:27.664273" elapsed="0.247136"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-07-20T22:37:37.912361" level="INFO">Slept 10 seconds.</msg>
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-07-20T22:37:27.911747" elapsed="10.000835"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:37:37.913450" level="INFO">Clicking element '//a[contains(@href, '/following/') and @role='link' and @tabindex='0']'.</msg>
+<arg>//a[contains(@href, '/following/') and @role='link' and @tabindex='0']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-07-20T22:37:37.913004" elapsed="0.197200"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-07-20T22:37:48.111424" level="INFO">Slept 10 seconds.</msg>
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-07-20T22:37:38.110563" elapsed="10.001073"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-07-20T22:37:48.112425" level="INFO">Clicking element '//button[normalize-space(text())='Following']'.</msg>
+<msg time="2024-07-20T22:37:48.299777" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-07-20T22:37:48.301450" level="FAIL">Element with locator '//button[normalize-space(text())='Following']' not found.</msg>
+<arg>//button[normalize-space(text())='Following']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="FAIL" start="2024-07-20T22:37:48.112011" elapsed="0.201786">Element with locator '//button[normalize-space(text())='Following']' not found.</status>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>100s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-07-20T22:37:48.314091" elapsed="0.000058"/>
+</kw>
+<arg>url=https://www.instagram.com/</arg>
+<status status="FAIL" start="2024-07-20T22:36:47.863732" elapsed="60.450690">Element with locator '//button[normalize-space(text())='Following']' not found.</status>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="NOT RUN" start="2024-07-20T22:37:48.315084" elapsed="0.000315"/>
+</kw>
+<status status="FAIL" start="2024-07-20T22:36:47.862990" elapsed="60.452823">Element with locator '//button[normalize-space(text())='Following']' not found.</status>
+</test>
+<status status="FAIL" start="2024-07-20T22:36:47.239459" elapsed="61.077346"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Browser">Browser</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2024-07-20T22:36:47.860983" level="WARN">Error in file '/Users/coroutine/Projects/Python/Automation/Robot/resources/keywords/flow.robot' on line 16: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>
