@@ -1,6 +1,7 @@
 *** Settings ***
+Library    OperatingSystem
 Library    SeleniumLibrary
-
+Library    ../../config/config.py
 # *** Variables ***
 # ${BROWSER}    chromium
 # ${HEADLESS}    false
@@ -13,7 +14,7 @@ Set Chrome Options
     Set Variable    ${chrome_options}    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${chrome_options}    add_experimental_option    prefs    ${prefs}
     Call Method    ${chrome_options}    add_argument    --use-fake-ui-for-media-stream
-    [Return]    ${chrome_options}
+    RETURN    ${chrome_options}
 
 Start Chrome With Media Permissions
     [Arguments]    ${url}
@@ -24,6 +25,8 @@ Start Chrome With Media Permissions
 
 Setup Instagram Flow
     [Arguments]    ${url}
+    ${INSTAGRAM_EMAIL}    Get Environment Variable    INSTAGRAM_EMAIL
+    ${INSTAGRAM_PASSWORD}    Get Environment Variable    INSTAGRAM_PASSWORD
     Open Browser    url=${url}   browser=chrome
     Sleep    5s
     # Start Chrome With Media Permissions
@@ -31,8 +34,8 @@ Setup Instagram Flow
     # # Set To Dictionary    ${caps}    goog:loggingPrefs    {"browser": "ALL"}
     # Create WebDriver    Chrome    desired_capabilities=${caps}
     Maximize Browser Window
-    Input Text    //input[@name='username']    mahendransparker@gmail.com
-    Input Text    //input[@name='password']    gojuryu45
+    Input Text    //input[@name='username']    ${INSTAGRAM_EMAIL} 
+    Input Text    //input[@name='password']    ${INSTAGRAM_PASSWORD}
     Click Button     css:button[type="submit"]
     Sleep    10s
     Click Element  xpath=//div[@role="button" and text()="Not now"]
