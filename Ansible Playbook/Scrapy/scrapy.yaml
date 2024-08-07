@@ -1,0 +1,61 @@
+- name: Remove .json files and run scrapy crawl
+  hosts: localhost
+  vars:
+    scrapy_project_dir: "{{ pwd_output.stdout }}/real_estate"
+    output_dir: "{{ pwd_output.stdout }}/real_estate/output/"
+  tasks:
+    - name: Get current working directory
+      command: pwd
+      register: pwd_output
+
+    - name: Display the current working directory
+      debug:
+        msg: "Current working directory is {{ pwd_output.stdout }}"
+
+    - name: Use the current working directory
+      command: ls -l
+      args:
+        chdir: "{{ pwd_output.stdout }}"
+
+    - name: Concatenate string to pwd output
+      set_fact:
+        project_directory: "{{ scrapy_project_dir }}"
+
+    - name: Debug path
+      debug:
+        msg: "The path is {{ project_directory }}"
+
+    - name: List all spiders
+      command: scrapy list
+      args:
+        chdir: "{{ scrapy_project_dir }}"
+      register: scrapy_spiders_output
+
+    - name: Print spiders
+      debug:
+        msg: "{{ scrapy_spiders_output.stdout_lines }}"
+
+    - name: Find .json files
+      find:
+        paths: "{{ output_dir }}" # Replace with the directory where you want to search for .json files
+        patterns: "*.json"
+      register: json_files
+
+    - name: Remove .json files
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ json_files.files }}"
+
+    - name: Create output directory if it doesn't exist
+      file:
+        path: "{{ output_dir }}"
+        state: directory
+
+    - name: Run each Scrapy spider
+      command: scrapy crawl {{ item }} -o {{ output_dir }}/{{ item }}.json -t json
+      args:
+        chdir: "{{ scrapy_project_dir }}"
+      loop: "{{ scrapy_spiders_output.stdout_lines }}"
+      environment:
+        PYTHONUNBUFFERED: 1 # to ensure real-time output.

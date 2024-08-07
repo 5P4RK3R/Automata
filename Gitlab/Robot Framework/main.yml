@@ -1,0 +1,164 @@
+stages:
+  - po
+  - local
+  - public_internal
+  - public_internal_ip
+  - public_external
+
+variables:
+  BACKEND_po: "po"
+  BACKEND_PUBLIC: "public"
+  BACKEND_PUBLIC_IP: "public_ip"
+  BACKEND_PO_01: "po-01"
+  BACKEND_PO_02: "po-02"
+  BACKEND_PO_03: "po-03"
+  BACKEND_PO_04: "po-04"
+  BACKEND_PO_05: "po-05"
+  BACKEND_U: "u"
+  BACKEND_U_02: "u_02"
+  BRANCH_NAME: ""
+  VERSION: "2.0.1"
+
+.connect-script:
+  allow_failure: false
+  variables:
+    GIT_STRATEGY: clone
+    DOWNLOAD_COMMAND: "python3 ci-scripts/download_and_unpack.py --user ${ARTIFACTORY_LOGIN} --passwopo ${ARTIFACTORY_APIKEY}"
+    ROBOT_COMMAND: "robot --variablefile backend/${BACKEND}.yaml --variable test_device:true --outputdir out -x rf-xunit.xml"
+    ROBOT_LOCAL_COMMAND: "robot --variable test_device:true --outputdir out -x rf-xunit.xml"
+
+  before_script:
+    - PATH=~/jfrog:$PATH
+    - >
+      if [ "${BRANCH_NAME}" ]; then
+        ${DOWNLOAD_COMMAND} --branch ${BRANCH_NAME}
+      else
+        ${DOWNLOAD_COMMAND} --version ${VERSION}
+      fi
+
+  script:
+    - echo ${BACKEND}
+    - rm -rf out
+    - |
+      if [ "${BRANCH_NAME}" ]; then
+        ${ROBOT_LOCAL_COMMAND} test_cases/integration_tests.robot 
+      else
+        if [ ! "${BACKEND}" ]; then
+          ${ROBOT_LOCAL_COMMAND} test_cases/integration_tests.robot 
+        else
+          robot_test_cases="test_cases/connectivity_tests.robot"
+
+          if [[ "${BACKEND}" == "po" || \
+                "${BACKEND}" == "public" || \
+                "${BACKEND}" == "po-02" || \
+                "${BACKEND}" == "u" ]]; then
+            robot_test_cases="${robot_test_cases} test_cases/integration_tests.robot"
+          fi
+          ${ROBOT_COMMAND} ${robot_test_cases}
+        fi
+      fi
+  
+  after_script:
+    - echo "Cleanup"
+
+  artifacts:
+    when: always
+    paths:
+      - out
+    reports:
+      junit: out/*.xml
+
+  tags:
+    - 5giv
+    - tests
+    - linux
+
+  rules:
+    - when: always
+
+local:
+  stage: local
+  extends: .connect-script
+  rules:
+    - if: $BRANCH_NAME
+  when: manual
+
+po_internal:
+  stage: po
+  variables:
+    BACKEND: "${BACKEND_po}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+public: 
+  stage: public_internal  
+  variables:
+    BACKEND: "${BACKEND_PUBLIC}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+public_ip: 
+  stage: public_internal_ip  
+  variables:
+    BACKEND: "${BACKEND_PUBLIC_IP}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+po-01:
+  stage: public_external  
+  variables:
+    BACKEND: "${BACKEND_PO_01}"
+  extends: .connect-script 
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+po-02:
+  stage: public_internal  
+  variables:
+    BACKEND: "${BACKEND_PO_02}"
+  extends: .connect-script  
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+po-03:
+  stage: public_external
+  variables:
+    BACKEND: "${BACKEND_PO_03}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+po-04:
+  stage: public_external
+  variables:
+    BACKEND: "${BACKEND_PO_04}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+po-05:
+  stage: public_external
+  variables:
+    BACKEND: "${BACKEND_PO_05}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+u:
+  stage: public_internal 
+  variables:
+    BACKEND: "${BACKEND_U}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'
+
+u_02:
+  stage: public_external 
+  variables:
+    BACKEND: "${BACKEND_U_02}"
+  extends: .connect-script
+  rules:
+    - if: '!($BRANCH_NAME)'

@@ -1,0 +1,78 @@
+- name: Run Twisted Server
+  hosts: localhost
+  vars:
+    twisted_project_dir: "{{ pwd_output.stdout }}/"
+    robot_framework_project_dir: "{{ pwd_output.stdout }}/automation/"
+    output_dir: "{{ pwd_output.stdout }}/output/"
+  tasks:
+    - name: Get current working directory
+      command: pwd
+      register: pwd_output
+
+    - name: Display the current working directory
+      debug:
+        msg: "Current working directory is {{ pwd_output.stdout }}"
+
+    - name: Use the current working directory
+      command: ls -l
+      args:
+        chdir: "{{ pwd_output.stdout }}"
+
+    - name: Concatenate string to pwd output
+      set_fact:
+        project_directory: "{{ twisted_project_dir }}"
+        automation_directory: "{{ robot_framework_project_dir }}"
+
+    - name: Debug path
+      debug:
+        msg: "The path is {{ project_directory }} & {{automation_directory}}"
+
+    - name: Ensure the automation directory exists
+      file:
+        path: "{{ automation_directory }}"
+        state: directory
+
+    - name: Install Twisted (if not already installed)
+      pip:
+        name: twisted
+        state: present
+
+    - name: Remove Redundant Files
+      command:  make clean
+      args:
+        chdir: "{{ project_directory }}"
+
+    - name: Create output directory if it doesn't exist
+      file:
+        path: "{{ output_dir }}"
+        state: directory
+
+    - name: Run the Twisted application
+      shell: >
+        twistd -ny {{ project_directory }}/main.tac --logfile={{output_dir}}/main.log
+      args:
+        chdir: "{{ project_directory }}"
+      async: 30
+      poll: 0
+      register: twistd_job
+
+    - name: Run the Robot Automation Test Cases
+      shell: >
+        robot  --outputdir {{ automation_directory }}/results {{ automation_directory }}/tests
+      args:
+        chdir: "{{ automation_directory }}"
+      async: 30
+      poll: 0
+      register: robot_job
+
+    - name: Check if the application started successfully
+      shell: lsof -i :8081  # Adjust the port as necessary
+      register: check_app_status
+      retries: 5
+      delay: 5
+      ignore_errors: yes
+
+    - name: Ensure the application is running
+      fail:
+        msg: "The Twisted application did not start successfully."
+      when: check_app_status.stdout == ""
