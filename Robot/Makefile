@@ -18,6 +18,8 @@ install:
 clean:
 	find . -type f -name "*.pyc" -delete
 	find . -type f -name "*.xml" -delete
+	find . -type f -name "*.html" -delete
+	find . -type f -name "*.png" -delete
 	find . -type f -name "*.DS_Store" -delete
 	find . -type d -name "__pycache__" -delete
 
